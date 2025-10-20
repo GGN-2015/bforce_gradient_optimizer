@@ -5,10 +5,14 @@
 
 #include "CalculateValue.h"
 
-static std::string doubleToSciString(double value) {
+static std::string doubleToSciString(double value, bool scientific_mode=false) {
     std::stringstream ss;
-    // 启用科学记数法，并设置总有效数字为 15 位（确保小数部分 15 位）
-    ss << std::scientific << std::setprecision(16) << value;
+    // 启用科学记数法，并设置总有效数字为 15 位（确保小数部分 15 位
+    if(scientific_mode) {
+        ss << std::scientific << std::setprecision(16) << value;
+    }else {
+        ss << value; // 默认模式
+    }
     return ss.str();
 }
 

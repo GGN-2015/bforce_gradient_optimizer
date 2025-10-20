@@ -1,6 +1,6 @@
 #pragma once
 #include <cassert>
-#include "Function.h"
+#include "AbstractFunction.h"
 
 // 用于描述变量
 class Variable: public AbstractFunction {
@@ -33,4 +33,11 @@ public:
     virtual AbstractFunction* clone() const override final{
         return new Variable(this -> variable_index);
     }
+
+
+    // 禁用拷贝构造函数
+    Variable(const Variable&) = delete;
+    Variable& operator=(const Variable&) = delete;
+    Variable(Variable&&) = delete;
+    Variable& operator=(Variable&&) = delete;
 };

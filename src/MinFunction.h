@@ -19,4 +19,10 @@ public:
         }
         return ans;
     }
+
+    // 禁用拷贝构造函数
+    MinFunction(const MinFunction&) = delete;
+    MinFunction& operator=(const MinFunction&) = delete;
+    MinFunction(MinFunction&&) = delete;
+    MinFunction& operator=(MinFunction&&) = delete;
 };

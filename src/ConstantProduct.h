@@ -1,5 +1,5 @@
 #include "Constant.h"
-#include "Function.h"
+#include "AbstractFunction.h"
 
 class ConstantProduct: public AbstractFunction {
 protected:
@@ -45,4 +45,10 @@ public:
     virtual AbstractFunction* clone() const override {
         return new ConstantProduct(*cval, *absfunc);
     }
+
+    // 禁用拷贝构造函数
+    ConstantProduct(const ConstantProduct&) = delete;
+    ConstantProduct& operator=(const ConstantProduct&) = delete;
+    ConstantProduct(ConstantProduct&&) = delete;
+    ConstantProduct& operator=(ConstantProduct&&) = delete;
 };

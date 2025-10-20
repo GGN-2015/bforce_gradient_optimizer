@@ -65,7 +65,7 @@ std::string ValueSet::toString() const {
 
     for(auto [id, ptr]: value_set) {
         posnow += 1;
-        ans += "\n    " + std::to_string(id) + ": " + getValueById(id)->toString();
+        ans += "\n    x_" + std::to_string(id) + ": " + getValueById(id)->toString();
 
         if(posnow < cnt) { // 不是最后一个元素
             ans += ",";

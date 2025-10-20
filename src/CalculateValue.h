@@ -4,6 +4,7 @@
 // 什么是数值：就是可以进行计算的
 class AbstractCalculateValue {
 public:
+    AbstractCalculateValue(){}
     virtual ~AbstractCalculateValue(){}
 
     virtual void add(const AbstractCalculateValue& rhs) = 0;
@@ -16,6 +17,8 @@ public:
     // 从整数或者浮点数获得一个计算结果
     virtual void fromInt (int   ) = 0;
     virtual void fromReal(double) = 0;
+    virtual int toInt() = 0;
+    virtual double toReal() = 0;
 
     // 将计算结果显示成字符串
     virtual std::string toString() const = 0;
@@ -44,6 +47,12 @@ public:
     virtual bool neq(const AbstractCalculateValue& rhs) const {
         return !this -> equ(rhs);
     }
+
+    // 禁用拷贝构造函数
+    AbstractCalculateValue(const AbstractCalculateValue&) = delete;
+    AbstractCalculateValue& operator=(const AbstractCalculateValue&) = delete;
+    AbstractCalculateValue(AbstractCalculateValue&&) = delete;
+    AbstractCalculateValue& operator=(AbstractCalculateValue&&) = delete;
 };
 
 // 用于计算的实数
@@ -70,6 +79,12 @@ public:
     // 从整数或者浮点数获得一个计算结果
     virtual void fromInt (int   ) override;
     virtual void fromReal(double) override;
+    virtual int toInt() override {
+        return (int)real_value;
+    }
+    virtual double toReal() override {
+        return (double)real_value;
+    }
 
     // 将计算结果显示成字符串
     virtual std::string toString() const override;
@@ -83,4 +98,11 @@ public:
     
     // 比较大小
     virtual bool leq(const AbstractCalculateValue& rhs) const override;
+
+
+    // 禁用拷贝构造函数
+    RealCalculateValue(const RealCalculateValue&) = delete;
+    RealCalculateValue& operator=(const RealCalculateValue&) = delete;
+    RealCalculateValue(RealCalculateValue&&) = delete;
+    RealCalculateValue& operator=(RealCalculateValue&&) = delete;
 };

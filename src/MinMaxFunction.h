@@ -12,4 +12,10 @@ public:
         const AbstractCalculateValue* max_or_max_value, 
         const std::vector<AbstractCalculateValue*>& function_values, 
         const std::vector<ValueSet*>& function_derivatives) const override;
+    
+    // 禁用拷贝构造函数
+    MinMaxFunction(const MinMaxFunction&) = delete;
+    MinMaxFunction& operator=(const MinMaxFunction&) = delete;
+    MinMaxFunction(MinMaxFunction&&) = delete;
+    MinMaxFunction& operator=(MinMaxFunction&&) = delete;
 };

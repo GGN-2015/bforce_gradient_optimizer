@@ -43,4 +43,10 @@ public:
     BoxRange* clone() const {
         return new BoxRange(*this -> minval, *this -> maxval);
     }
+
+    // 禁用拷贝构造函数
+    BoxRange(const BoxRange&) = delete;
+    BoxRange& operator=(const BoxRange&) = delete;
+    BoxRange(BoxRange&&) = delete;
+    BoxRange& operator=(BoxRange&&) = delete;
 };

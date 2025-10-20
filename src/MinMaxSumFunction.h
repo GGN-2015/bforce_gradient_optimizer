@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Function.h"
+#include "AbstractFunction.h"
 
 // 用于计算最大值或者最小值的函数
 class MinMaxSumFunction: public AbstractFunction {
@@ -9,11 +9,11 @@ protected:
     std::string function_name = "min_or_max";
 
 public:
-    MinMaxSumFunction(std::string _func_name){
+    MinMaxSumFunction(std::string _func_name) {
         function_name = _func_name;
         assert(function_name == "min" || function_name == "max" || function_name == "sum");
     }
-    virtual ~MinMaxSumFunction(){
+    virtual ~MinMaxSumFunction() {
         for(auto ptr: sub_functions) { // 释放所有指针，这里应当由当前对象负责释放
             delete ptr;
         }
@@ -42,4 +42,10 @@ public:
 
     // 给定参数取值，计算函数值和偏导数的值，函数值存储在 value_storage, 偏导数存储在 derivative_storage
     virtual void calculate(AbstractCalculateValue& value_storage, ValueSet& derivative_storage, const ValueSet& value_set) override final;
+
+    // 禁用拷贝构造函数
+    MinMaxSumFunction(const MinMaxSumFunction&) = delete;
+    MinMaxSumFunction& operator=(const MinMaxSumFunction&) = delete;
+    MinMaxSumFunction(MinMaxSumFunction&&) = delete;
+    MinMaxSumFunction& operator=(MinMaxSumFunction&&) = delete;
 };

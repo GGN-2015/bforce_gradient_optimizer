@@ -55,4 +55,19 @@ public:
         }
         return box_set.size() == 0 ? (ans + "}") : (ans + "\n}");
     }
+
+    // 只负责克隆不负责释放空间
+    BoxRangeSet* clone() const {
+        BoxRangeSet* newset = new BoxRangeSet();
+        for(auto [id, ptr]: this -> box_set) {
+            newset -> setRange(id, *ptr);
+        }
+        return newset;
+    }
+
+    // 禁用拷贝构造函数
+    BoxRangeSet(const BoxRangeSet&) = delete;
+    BoxRangeSet& operator=(const BoxRangeSet&) = delete;
+    BoxRangeSet(BoxRangeSet&&) = delete;
+    BoxRangeSet& operator=(BoxRangeSet&&) = delete;
 };

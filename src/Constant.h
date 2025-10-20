@@ -1,6 +1,6 @@
 #pragma once
 #include "CalculateValue.h"
-#include "Function.h"
+#include "AbstractFunction.h"
 
 class Constant: public AbstractFunction {
 protected:
@@ -34,4 +34,10 @@ public:
     virtual AbstractFunction* clone() const override {
         return new Constant(*(this -> value_now));
     }
+
+    // 禁用拷贝构造函数
+    Constant(const Constant&) = delete;
+    Constant& operator=(const Constant&) = delete;
+    Constant(Constant&&) = delete;
+    Constant& operator=(Constant&&) = delete;
 };

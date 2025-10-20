@@ -35,4 +35,10 @@ public:
         }
         return ans;
     }
+
+    // 禁用拷贝构造函数
+    SumFunction(const SumFunction&) = delete;
+    SumFunction& operator=(const SumFunction&) = delete;
+    SumFunction(SumFunction&&) = delete;
+    SumFunction& operator=(SumFunction&&) = delete;
 };

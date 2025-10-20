@@ -19,4 +19,10 @@ public:
         }
         return ans;
     }
+
+    // 禁用拷贝构造函数
+    MaxFunction(const MaxFunction&) = delete;
+    MaxFunction& operator=(const MaxFunction&) = delete;
+    MaxFunction(MaxFunction&&) = delete;
+    MaxFunction& operator=(MaxFunction&&) = delete;
 };

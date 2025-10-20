@@ -1,53 +1,38 @@
 #include <iostream>
-#include "BoxRangeSet.h"
-#include "CalculateValue.h"
 #include "Constant.h"
 #include "ConstantProduct.h"
-#include "MinFunction.h"
-#include "ValueSet.h"
-#include "Variable.h"
+#include "GradientSolver.h"
+#include "MaxFunction.h"
+#include "SumFunction.h"
 
 int main() {
-    // 定义变量
-    Variable v1, v2;
-    std::cout << v1.toString() << std::endl;
-    std::cout << v2.toString() << std::endl;
+    Variable x1;
+    Constant c1(RealCalculateValue( 1.0));
+    Constant n1(RealCalculateValue(-1.0));
 
-    // 定义变量的取值组合
-    ValueSet valset;
-    valset.setValueById(1, RealCalculateValue(-1.1));
-    valset.setValueById(2, RealCalculateValue(-0.5));
+    SumFunction sum1;
+    sum1.addSubFunction(c1);
+    sum1.addSubFunction(ConstantProduct(RealCalculateValue(-1.0), x1));
 
-    // 描述每个变量的值的取值范围
-    BoxRangeSet boxset;
-    boxset.setRange(1, BoxRange(RealCalculateValue(-1.0), RealCalculateValue(+1.0)));
-    boxset.setRange(2, BoxRange(RealCalculateValue(-1.0), RealCalculateValue(+1.0)));
+    SumFunction sum2;
+    sum2.addSubFunction(n1);
+    sum2.addSubFunction(x1);
 
+    MaxFunction max1;
+    max1.addSubFunction(sum1);
+    max1.addSubFunction(sum2);
 
-    // 修正一个取值范围
-    std::cout << valset.toString() << std::endl;
-    boxset.fixValueSet(valset);
-    std::cout << valset.toString() << std::endl;
+    ValueSet vs;
+    vs.setIntValueById(1, -2, RealCalculateValue());
 
-    // 定义常量
-    Constant cval(RealCalculateValue(-1.0));
-    Constant coef(RealCalculateValue( 2.0));
+    GradientSolver gs(max1, BoxRangeSet(), vs, RealCalculateValue(4.0), RealCalculateValue(0.95));
 
-    // 定义表达式
-    ConstantProduct cprod(coef, v2);
+    while(gs.getStepLenReal() > 1e-8) {
+        gs.step();
 
-    MinFunction func;
-    func.addSubFunction(v1);
-    func.addSubFunction(cprod);
-    func.addSubFunction(cval);
-
-    // 计算表达式的取值和导数
-    RealCalculateValue ans_calc;
-    ValueSet der_calc;
-    func.calculate(ans_calc, der_calc, valset);
-
-    std::cout << func.toString() << std::endl;
-    std::cout << ans_calc.toString() << std::endl;
-    std::cout << der_calc.toString() << std::endl;
+        // std::string ans = "";
+        // std::getline(std::cin, ans);
+    }
+    std::cout << gs.toString() << std::endl;
     return 0;
 }

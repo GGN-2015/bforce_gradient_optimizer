@@ -85,4 +85,10 @@ public:
         }
         return new_obj;
     }
+
+    // 禁用拷贝构造函数
+    ValueSet(const ValueSet&) = delete;
+    ValueSet& operator=(const ValueSet&) = delete;
+    ValueSet(ValueSet&&) = delete;
+    ValueSet& operator=(ValueSet&&) = delete;
 };
