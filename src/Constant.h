@@ -35,6 +35,11 @@ public:
         return new Constant(*(this -> value_now));
     }
 
+    // 由于没有变量所以直接返回自身的拷贝
+    virtual AbstractFunction* replaceVar(int varid, AbstractFunction*) const override {
+        return this -> clone();
+    }
+
     // 禁用拷贝构造函数
     Constant(const Constant&) = delete;
     Constant& operator=(const Constant&) = delete;

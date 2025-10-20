@@ -46,6 +46,14 @@ public:
         return new ConstantProduct(*cval, *absfunc);
     }
 
+    // 由于常数部分不需要考虑变量，所以常数部分可以豁免
+    virtual AbstractFunction* replaceVar(int varid, AbstractFunction* new_exp) const override {
+        auto* tmp = absfunc -> replaceVar(varid, new_exp);
+        auto* ans = new ConstantProduct(*cval, *tmp);
+        delete tmp;
+        return ans;
+    }
+
     // 禁用拷贝构造函数
     ConstantProduct(const ConstantProduct&) = delete;
     ConstantProduct& operator=(const ConstantProduct&) = delete;

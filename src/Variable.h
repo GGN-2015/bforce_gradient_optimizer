@@ -23,6 +23,16 @@ public:
         variable_index = old_id;
     }
 
+    // 是变量
+    bool isVar() const override {
+        return true;
+    }
+
+    // 获取变量编号
+    int getVarId() const override {
+        return variable_index;
+    }
+
     // 给定参数取值，计算函数值和偏导数的值
     virtual void calculate(AbstractCalculateValue& value_storage, ValueSet& derivative_storage, const ValueSet& value_set) override final;
 
@@ -34,6 +44,14 @@ public:
         return new Variable(this -> variable_index);
     }
 
+    // 获取变量取代后的表达式
+    AbstractFunction* replaceVar(int varid, AbstractFunction* new_func) const override{
+        if(getVarId() == varid) {
+            return new_func -> clone();
+        }else {
+            return this -> clone();
+        }
+    }
 
     // 禁用拷贝构造函数
     Variable(const Variable&) = delete;

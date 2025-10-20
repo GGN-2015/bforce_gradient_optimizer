@@ -19,6 +19,16 @@ public:
         }
     }
 
+        // 在所有子表达式中进行必要替代
+    virtual AbstractFunction* replaceVar(int varid, AbstractFunction* new_exp) const override final {
+        MinMaxSumFunction* ans = dynamic_cast<MinMaxSumFunction*> (this -> clone());
+        ans -> sub_functions.clear();
+        for(auto ptr: this -> sub_functions) {
+            ans -> addSubFunction(*ptr -> replaceVar(varid, new_exp));
+        }
+        return ans;
+    }
+
     // 这个函数用于计算 lhs 和 rhs 的 min 或者 max 最终把结果保存在 lhs 中
     // 需要在子类中覆写这个方法
     virtual void makeMinOrMaxOrSum(AbstractCalculateValue* lhs, const AbstractCalculateValue* rhs) const = 0;
