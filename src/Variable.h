@@ -24,13 +24,13 @@ public:
     }
 
     // 给定参数取值，计算函数值和偏导数的值
-    virtual void calculate(AbstractCalculateValue& value_storage, ValueSet& derivative_storage, const ValueSet& value_set) override;
+    virtual void calculate(AbstractCalculateValue& value_storage, ValueSet& derivative_storage, const ValueSet& value_set) override final;
 
     // 得到字符串形式
-    virtual std::string toString() const override;
+    virtual std::string toString() const override final;
 
     // 拷贝一个完全一样的变量
-    virtual AbstractFunction* clone() override {
+    virtual AbstractFunction* clone() const override final{
         return new Variable(this -> variable_index);
     }
 };

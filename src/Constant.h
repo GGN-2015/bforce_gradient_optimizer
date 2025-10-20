@@ -31,7 +31,7 @@ public:
     }
 
     // 克隆一个完全一模一样的，采用深拷贝，调用者负责释放空间
-    virtual AbstractFunction* clone() override {
+    virtual AbstractFunction* clone() const override {
         return new Constant(*(this -> value_now));
     }
 };

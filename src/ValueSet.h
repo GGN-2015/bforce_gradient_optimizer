@@ -38,18 +38,11 @@ public:
         }
     }
 
-    // 用于给每个变量的值都除以一个整数
-    void div(double val) {
-        AbstractCalculateValue* tmp = nullptr; // 利用辅助变量存储 val 的值
-        for(auto [id, ptr]: this -> value_set) {
-            if(tmp == nullptr) {
-                tmp = ptr -> clone(); // 利用其中第一个原型初始化
-                tmp->fromReal(val);
-            }
-            ptr -> div(*tmp);
-        }
-        delete tmp; // 删除辅助变量
-    }
+    // 用于给每个变量的值都除以一个数
+    void div(double val);
+
+    // 用于给每个变量的值都乘以一个数
+    void mul(const AbstractCalculateValue& val);
 
     // 复制一个一模一样的 ValueSet
     void copy(const ValueSet& rhs) {

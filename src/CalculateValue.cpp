@@ -8,7 +8,7 @@
 static std::string doubleToSciString(double value) {
     std::stringstream ss;
     // 启用科学记数法，并设置总有效数字为 15 位（确保小数部分 15 位）
-    ss << std::scientific << std::setprecision(15) << value;
+    ss << std::scientific << std::setprecision(16) << value;
     return ss.str();
 }
 

@@ -12,10 +12,10 @@ public:
     }
 
     // 由于 MinMaxSumFunction 不能实例化，所以只能在这里实现 clone
-    virtual AbstractFunction* clone() override final {
+    virtual AbstractFunction* clone() const override final {
         MaxFunction* ans = new MaxFunction;
         for(auto ptr: this -> sub_functions) {
-            ans -> addSubFunction(ptr);
+            ans -> addSubFunction(*ptr);
         }
         return ans;
     }
